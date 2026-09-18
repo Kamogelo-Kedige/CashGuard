@@ -2,7 +2,7 @@ package com.CashGuard.ATM;
 
 
 /**
- * * A bundle of the five note denominations withdrawn on a specific day
+ * A bundle of the five note denominations withdrawn on a specific day
  * @param r10
  * @param r20
  * @param r50
