@@ -8,7 +8,7 @@ import java.util.List;
 public class ATM
 {
     //Attributes
-    private int  id;
+    private String  id;
     private String location;
     private double maxCashCapacity; // max cash the ATM can hold
     private List<ATMDayTransaction> records;
@@ -26,7 +26,7 @@ public class ATM
      * @param maxCashCapacity
      * @param records
      */
-    public ATM(int id, String location, double maxCashCapacity, List<ATMDayTransaction> records) {
+    public ATM(String id, String location, double maxCashCapacity, List<ATMDayTransaction> records) {
         this.id = id;
         this.location = location;
         this.maxCashCapacity = maxCashCapacity;
@@ -35,11 +35,11 @@ public class ATM
 
     //Getter and Setter Pairs
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
