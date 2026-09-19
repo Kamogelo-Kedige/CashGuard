@@ -6,10 +6,10 @@ import java.util.Map;
 /**
  * Bundles everything needed for the dashboard
  */
-public record DashboardSummary(int atmId,
+public record DashboardSummary(String atmId,
                                String location,
                                String riskLevel,
-                               double hoursToEmpty,
+                               double hoursToNoCash,
                                String mostUsedDenomination,
                                Denomination denominationTotals,
                                Map<LocalDate, Double> withdrawalTrend,
