@@ -1,11 +1,15 @@
 package com.CashGuard;
 
+import com.CashGuard.userInterface.DashboardUI;
+import com.CashGuard.analysis.Dashboard;
+import com.CashGuard.data.ATMDataHandler;
+import com.CashGuard.model.ATM;
+import com.CashGuard.model.DashboardSummary;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import com.CashGuard.ATM.ATM;
-import com.CashGuard.ATM.ATMDataHandler;
-import com.CashGuard.ATM.CashShortagePredictor;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 
 public class Main extends Application {
@@ -13,19 +17,7 @@ public class Main extends Application {
 
        launch(args);
        
-        ATM mallATM = ATMDataHandler.loadDataFromFile(
-                "C:\\Users\\kedig\\Documents\\GitHub\\CashGuard\\src\\main\\resources\\atm_taxirank.csv",
-                500000
-        );
 
-
-        //Sanity checks
-        System.out.println("Taxi Rank ATM ID: " + mallATM.getId());
-        System.out.println("Capa:" + mallATM.getMaxCashCapacity());
-        System.out.println("Loca:" + mallATM.getLocation());
-        CashShortagePredictor predictor =  new CashShortagePredictor();
-        System.out.println("Hours to empty: " + predictor.predictHoursToEmpty(mallATM));
-        System.out.println("Risk level: " + predictor.determineRiskLevel(mallATM));
 
     }
 
@@ -47,6 +39,25 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        Dashboard dashboard = new Dashboard();
+
+        // LinkedHashMap keeps insertion order, so the ATM selector
+        // lists them Mall, Township, Taxi Rank — not shuffled.
+        Map<String, DashboardSummary> summaries = new LinkedHashMap<>();
+
+        ATM mall = ATMDataHandler.loadDataFromFile("C:\\Users\\kedig\\Documents\\GitHub\\CashGuard\\src\\main\\resources\\atm_mall.csv", 500000);
+        summaries.put(mall.getLocation(), dashboard.build(mall));
+
+        /*
+        ATM township = ATMDataHandler.loadDataFromFile("data/atm_township.csv", 300000);
+        summaries.put(township.getLocation(), dashboard.build(township));
+
+         */
+
+        ATM taxiRank = ATMDataHandler.loadDataFromFile("C:\\Users\\kedig\\Documents\\GitHub\\CashGuard\\src\\main\\resources\\atm_taxirank.csv", 150000);
+        summaries.put(taxiRank.getLocation(), dashboard.build(taxiRank));
+
+        primaryStage.setScene(DashboardUI.buildMainScene(summaries));
         primaryStage.setTitle("CashRunway");
         primaryStage.show();
     }
