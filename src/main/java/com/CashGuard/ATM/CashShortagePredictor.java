@@ -91,7 +91,9 @@ public class CashShortagePredictor {
     public double calculatePredictedDailyWithdrawal(ATM atm) {
 
         ATMDayTransaction today = atm.getLatestRecord();
-
+        if (today == null) {
+            throw new IllegalStateException("Cannot predict with no history for " + atm.getId());
+        }
         double recentAverage = calculateRecentAverage(atm);
 
         double demandMultiplier = calculateWithdrawalDemandMultiplier(atm, today);
