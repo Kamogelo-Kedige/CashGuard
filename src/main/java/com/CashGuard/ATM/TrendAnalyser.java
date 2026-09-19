@@ -22,6 +22,7 @@ public class TrendAnalyser
             }
 
             //Linked hashmap to preserve order in which the transactions were performed
+            //get withdrawal amounts for each date
             Map<LocalDate, Double> withdrawalSeries = new LinkedHashMap<>();
             for (ATMDayTransaction dayRecord : history) {
                 withdrawalSeries.put(dayRecord.getDate(), dayRecord.getWithdrawalAmount());
@@ -39,6 +40,7 @@ public class TrendAnalyser
                 throw new IllegalStateException("Cannot build a trend with no history for " + atm.getId());
             }
 
+            //get closing balances for each date
             Map<LocalDate, Double> closingBalanceSeries = new LinkedHashMap<>();
             for (ATMDayTransaction dayRecord : history) {
                 closingBalanceSeries.put(dayRecord.getDate(), dayRecord.getClosingBalance());
