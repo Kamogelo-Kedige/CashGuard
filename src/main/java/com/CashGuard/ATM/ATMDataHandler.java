@@ -50,13 +50,9 @@ public class ATMDataHandler
             }
 
         }
-        catch (IllegalArgumentException e) {
-            System.err.println("Invalid argument: " + e.getMessage());
+        catch (IllegalArgumentException | IOException e) {
+            throw new IllegalStateException("Unable to load ATM data from " + path, e);
         }
-        catch (IOException e) 
-       {
-           System.err.println("File error while reading " + path + ": " + e.getMessage());
-       }
 
         return new ATM(id,location,maxCashCapacity,transactions);
     }
