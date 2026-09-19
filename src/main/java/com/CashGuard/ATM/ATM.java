@@ -8,10 +8,10 @@ import java.util.List;
 public class ATM
 {
     //Attributes
-    private int  id;
+    private String  id;
     private String location;
-    private double maxCashCapacity; // max cash the ATM can hold
-    private List<ATMDayTransaction> records;
+    private double maxCashCapacity; // max amount of cash the ATM can hold
+    private List<ATMDayTransaction> atmTransactionHistory;
 
     /**
      * No args constructor
@@ -24,32 +24,26 @@ public class ATM
      * @param id
      * @param location
      * @param maxCashCapacity
-     * @param records
+     * @param atmTransactionHistory
      */
-    public ATM(int id, String location, double maxCashCapacity, List<ATMDayTransaction> records) {
+    public ATM(String id, String location, double maxCashCapacity, List<ATMDayTransaction> atmTransactionHistory) {
         this.id = id;
         this.location = location;
         this.maxCashCapacity = maxCashCapacity;
-        this.records = records;
+        this.atmTransactionHistory = atmTransactionHistory;
     }
 
     //Getter and Setter Pairs
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public double getMaxCashCapacity() {
         return maxCashCapacity;
@@ -59,11 +53,20 @@ public class ATM
         this.maxCashCapacity = maxCashCapacity;
     }
 
-    public List<ATMDayTransaction> getRecords() {
-        return records;
+    public List<ATMDayTransaction> getAtmTransactionHistory() {
+        return atmTransactionHistory;
     }
 
-    public void setRecords(List<ATMDayTransaction> records) {
-        this.records = records;
+    /**
+     * Returns the most recent day recorded for this ATM.
+     * Used by the predictor to know the "current" balance.
+     */
+    public ATMDayTransaction getLatestRecord() {
+
+        if (atmTransactionHistory == null || atmTransactionHistory.isEmpty()) {
+            return null;
+        }
+        return atmTransactionHistory.getLast();
     }
+
 }
