@@ -10,7 +10,7 @@ public class ATM
     //Attributes
     private String  id;
     private String location;
-    private double maxCashCapacity; // max cash the ATM can hold
+    private double maxCashCapacity; // max amount of cash the ATM can hold
     private List<ATMDayTransaction> atmTransactionHistory;
 
     /**
